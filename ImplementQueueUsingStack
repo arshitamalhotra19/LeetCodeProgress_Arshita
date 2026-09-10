@@ -1,0 +1,141 @@
+class MyQueue {
+private:
+    stack<int> s1;
+    stack<int> s2;
+
+public:
+    MyQueue() {
+    }
+
+    void push(int x) {
+        s1.push(x);
+    }
+
+    int pop() {
+        if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+
+        int x = s2.top();
+        s2.pop();
+        return x;
+    }
+
+    int peek() {
+        if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+
+        return s2.top();
+    }
+
+    bool empty() {
+        return s1.empty() && s2.empty();
+    }
+};
+
+
+
+
+## Implement Queue using Stacks
+
+## Approach
+Use two stacks to implement a queue.
+
+The two stacks are:
+- `stack1` for adding elements.
+- `stack2` for removing and accessing the front element.
+
+When `stack2` is empty, transfer all elements from `stack1` to `stack2`.
+This reverses their order and gives us the FIFO behavior of a queue.
+
+## Intuition
+A stack follows **LIFO** (Last In, First Out), while a queue follows
+**FIFO** (First In, First Out).
+
+Using two stacks, we can reverse the order of elements twice.
+
+For example:
+
+`1 → 2 → 3`
+
+After moving them from `stack1` to `stack2`:
+
+`3 → 2 → 1`
+
+Now `1` is at the top of `stack2`, so it can be removed first,
+just like in a queue.
+
+## Algorithm
+
+### push(x)
+1. Push `x` into `stack1`.
+
+### pop()
+1. If `stack2` is empty, move all elements from `stack1` to `stack2`.
+2. Pop the top element from `stack2`.
+
+### peek()
+1. If `stack2` is empty, move all elements from `stack1` to `stack2`.
+2. Return the top element of `stack2`.
+
+### empty()
+1. Return true if both stacks are empty.
+2. Otherwise, return false.
+
+## Time Complexity
+- `push()` → O(1)
+- `pop()` → Amortized O(1)
+- `peek()` → Amortized O(1)
+- `empty()` → O(1)
+
+## Space Complexity
+O(n)
+
+## Code
+
+class MyQueue {
+public:
+    stack<int> s1, s2;
+
+    MyQueue() {
+    }
+
+    void push(int x) {
+        s1.push(x);
+    }
+
+    int pop() {
+        if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+
+        int x = s2.top();
+        s2.pop();
+        return x;
+    }
+
+    int peek() {
+        if (s2.empty()) {
+            while (!s1.empty()) {
+                s2.push(s1.top());
+                s1.pop();
+            }
+        }
+
+        return s2.top();
+    }
+
+    bool empty() {
+        return s1.empty() && s2.empty();
+    }
+};
