@@ -26,3 +26,59 @@ public:
         return -1;
     }
 };
+
+
+
+# Approach
+
+Use Binary Search.
+
+In a rotated sorted array, at least one half of the array is always sorted.
+We identify the sorted half and check whether the target lies in that half.
+
+# Intuition
+
+A normal binary search works because the entire array is sorted.
+
+In a rotated sorted array, the complete array is not sorted, but one
+of the two halves around `mid` will always be sorted.
+
+For example:
+
+`[4, 5, 6, 7, 0, 1, 2]`
+
+If the left half is sorted, we check whether the target lies between
+`nums[left]` and `nums[mid]`.
+
+If it does, search the left half.
+
+Otherwise, search the right half.
+
+Similarly, if the right half is sorted, check whether the target lies
+in that half.
+
+This allows us to eliminate half of the search space at every step.
+
+# Algorithm
+
+1. Set `low = 0` and `high = n - 1`.
+2. Find `mid`.
+3. If `nums[mid] == target`, return `mid`.
+4. Check which half is sorted.
+5. If the left half is sorted:
+   - Check if the target lies in the left half.
+   - If yes, move `high` to `mid - 1`.
+   - Otherwise, move `low` to `mid + 1`.
+6. If the right half is sorted:
+   - Check if the target lies in the right half.
+   - If yes, move `low` to `mid + 1`.
+   - Otherwise, move `high` to `mid - 1`.
+7. Return `-1` if the target is not found.
+
+# Time Complexity
+
+O(log n)
+
+# Space Complexity
+
+O(1)
