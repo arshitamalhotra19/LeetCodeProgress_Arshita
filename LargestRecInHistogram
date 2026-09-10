@@ -29,3 +29,65 @@ public:
         return maxArea;
     }
 };
+
+
+
+# Approach
+
+Use a **Monotonic Stack** to find the nearest smaller element on both
+sides of every bar.
+
+The stack stores indices of bars in increasing order of height.
+
+When we find a bar smaller than the bar at the top of the stack, we
+know that the taller bar can no longer extend to the right. We calculate
+the maximum rectangle using that bar as the smallest height.
+
+# Intuition
+
+For every bar, we want to know:
+
+- How far can this bar extend to the left?
+- How far can it extend to the right?
+
+The first smaller bar on either side limits the width of the rectangle.
+
+Instead of checking every bar individually, the monotonic stack helps
+us find these boundaries efficiently.
+
+For example:
+
+`[2, 1, 5, 6, 2, 3]`
+
+When we encounter `2` after `6`, the bars `6` and `5` can no longer
+extend further to the right, so we calculate their possible areas.
+
+The largest rectangle has height `5` and width `2`:
+
+`5 × 2 = 10`
+
+# Algorithm
+
+1. Create an empty stack to store indices.
+2. Traverse the histogram.
+3. While the stack is not empty and the current height is smaller
+   than the height at the stack's top:
+   - Remove the top index.
+   - Calculate the height of the rectangle.
+   - Calculate its width using the current index and the new stack top.
+   - Update the maximum area.
+4. Push the current index into the stack.
+5. After traversal, process all remaining elements in the stack.
+6. Return the maximum area.
+
+# Time Complexity
+
+O(n)
+
+Each bar is pushed into and removed from the stack at most once.
+
+# Space Complexity
+
+O(n)
+
+The stack can contain up to n indices.
