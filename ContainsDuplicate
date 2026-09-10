@@ -14,3 +14,30 @@ public:
         return false;
     }
 };
+
+
+
+## Contains Duplicate
+
+## Approach
+Use an unordered set to keep track of the elements
+that have already been visited.
+
+## Intuition
+If an element is already present in the set, it means
+the element has appeared before, so the array contains
+a duplicate.
+
+## Algorithm
+1. Create an unordered set.
+2. Traverse the array.
+3. If the current element already exists in the set,
+   return true.
+4. Otherwise, insert it into the set.
+5. If no duplicate is found, return false.
+
+## Time Complexity
+O(n)
+
+## Space Complexity
+O(n)
